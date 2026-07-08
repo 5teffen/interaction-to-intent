@@ -1,0 +1,68 @@
+# ── Interactions2Intent Pipeline Configuration ──────────────────────────────
+# Reference configuration for all pipeline settings.
+# Note: scripts use argparse with their own defaults. Pass CLI flags or use
+# the Makefile to override. This file documents the canonical values.
+
+paths:
+  proj_dir: data/projected
+  output_dir: data/processed
+  checkpoint_dir: checkpoints
+  figures_dir: figures
+
+split:
+  test_datasets: recipes
+  train_datasets:
+    - basketball
+    - pokemon
+    - weather
+
+featurization:
+  density_epsilon: 0.05
+  recent_window: 15
+  coverage_grid_size: 10
+
+stage2:
+  n_sessions: 2000
+  min_tasks: 2
+  max_tasks: 5
+  transition_gap_ms: 3000.0
+  seed: 42
+
+training:
+  seed: 12
+  early_stopping_metric: f1_macro
+
+  xgboost:
+    n_estimators: 1000
+    patience: 15
+    max_depth: 6
+    learning_rate: 0.05
+    subsample: 0.8
+    colsample_bytree: 0.8
+    min_child_weight: 3
+    reg_alpha: 0.1
+    reg_lambda: 1.0
+
+  bigru:
+    hidden_dim: 64
+    dropout: 0.3
+    lr: 0.001
+    weight_decay: 0.0001
+    epochs: 100
+    patience: 15
+    batch_size: 32
+    attention: false
+    augment: 0.0
+
+  stage2_unigru:
+    hidden_dim: 64
+    dropout: 0.3
+    lr: 0.001
+    weight_decay: 0.0001
+    epochs: 80
+    patience: 12
+    batch_size: 16
+    boundary_tolerance: 3
+
+evaluation:
+  boundary_tolerance: 3
