@@ -101,7 +101,7 @@ Code: [MIT](LICENSE) · Dataset: [CC BY 4.0](https://creativecommons.org/license
   year         = {2026},
   eprint       = {2607.04501},
   archivePrefix= {arXiv},
-  note         = {Under review at IUI 2027}
+  note         = {Under review}
 }
 
 @dataset{holter2026dataset,
